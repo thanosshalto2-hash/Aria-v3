@@ -12,13 +12,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Extract project
+      - name: Extract and build
         run: |
-          curl -L -o aria.zip "https://github.com/thanosshalto2-hash/Aria-v3/raw/main/ARIA-upload.zip"
-          unzip aria.zip
-          mv ARIA-Android/* .
-      - name: Build APK
-        run: |
+          unzip ARIA-upload.zip
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
       - name: Upload APK
