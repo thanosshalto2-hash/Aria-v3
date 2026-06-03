@@ -14,7 +14,7 @@ jobs:
           distribution: 'temurin'
       - name: Extract and build
         run: |
-          unzip ARIA-upload.zip
+          unzip -o ARIA-upload.zip
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
       - name: Upload APK
