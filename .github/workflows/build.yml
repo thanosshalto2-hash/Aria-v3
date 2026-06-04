@@ -1,164 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_dark">
-
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical"
-        android:background="@color/bg_surface"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ARIA"
-            android:textColor="@color/accent_cyan"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.15"/>
-
-        <ImageButton
-            android:id="@+id/btnClear"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@android:drawable/ic_menu_delete"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/text_muted"
-            android:contentDescription="Clear"
-            android:layout_marginEnd="8dp"/>
-
-        <ImageButton
-            android:id="@+id/btnSettings"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@android:drawable/ic_menu_preferences"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="@color/text_muted"
-            android:contentDescription="Settings"/>
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="8dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintBottom_toTopOf="@id/waveformCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/waveformCard"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginBottom="4dp"
-        app:cardBackgroundColor="@color/bg_surface"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@id/inputCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.aria.assistant.ui.WaveformView
-                android:id="@+id/waveformView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"/>
-
-            <TextView
-                android:id="@+id/statusText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Say hey aria"
-                android:textColor="@color/text_muted"
-                android:textSize="12sp"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                android:indeterminateTint="@color/accent_cyan"/>
-        </FrameLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/inputCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginBottom="16dp"
-        app:cardBackgroundColor="@color/bg_surface"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="6dp">
-
-            <ImageButton
-                android:id="@+id/btnMic"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@android:drawable/ic_btn_speak_now"
-                android:background="@drawable/bg_mic_button"
-                android:tint="@color/accent_cyan"
-                android:contentDescription="Mic"/>
-
-            <EditText
-                android:id="@+id/editTextInput"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="8dp"
-                android:hint="Type a command..."
-                android:hintTextColor="@color/text_muted"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:background="@null"
-                android:maxLines="4"
-                android:imeOptions="actionSend"
-                android:inputType="textMultiLine|textCapSentences"/>
-
-            <ImageButton
-                android:id="@+id/btnSend"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@android:drawable/ic_menu_send"
-                android:background="@drawable/bg_send_button"
-                android:tint="@color/accent_cyan"
-                android:contentDescription="Send"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>          cd ARIA-Android
+name: Build ARIA APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Unzip
+        run: unzip "ARIA-Android-Complete-2.zip"
+      - name: Fix XML
+        run: |
+          cat > ARIA-Android/app/src/main/res/layout/activity_main.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/bg_dark">
+          <LinearLayout android:id="@+id/header" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="16dp" android:gravity="center_vertical" android:background="@color/bg_surface" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent">
+          <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="ARIA" android:textColor="@color/accent_cyan" android:textSize="22sp" android:textStyle="bold"/>
+          <ImageButton android:id="@+id/btnClear" android:layout_width="36dp" android:layout_height="36dp" android:src="@android:drawable/ic_menu_delete" android:background="?attr/selectableItemBackgroundBorderless" android:tint="@color/text_muted" android:contentDescription="Clear" android:layout_marginEnd="8dp"/>
+          <ImageButton android:id="@+id/btnSettings" android:layout_width="36dp" android:layout_height="36dp" android:src="@android:drawable/ic_menu_preferences" android:background="?attr/selectableItemBackgroundBorderless" android:tint="@color/text_muted" android:contentDescription="Settings"/>
+          </LinearLayout>
+          <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerView" android:layout_width="match_parent" android:layout_height="0dp" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:clipToPadding="false" app:layout_constraintTop_toBottomOf="@id/header" app:layout_constraintBottom_toTopOf="@id/waveformCard" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+          <androidx.cardview.widget.CardView android:id="@+id/waveformCard" android:layout_width="match_parent" android:layout_height="72dp" android:layout_marginHorizontal="12dp" android:layout_marginBottom="4dp" app:cardBackgroundColor="@color/bg_surface" app:cardCornerRadius="16dp" app:cardElevation="0dp" app:layout_constraintBottom_toTopOf="@id/inputCard" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+          <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+          <com.aria.assistant.ui.WaveformView android:id="@+id/waveformView" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="8dp"/>
+          <TextView android:id="@+id/statusText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="Say hey aria" android:textColor="@color/text_muted" android:textSize="12sp"/>
+          <ProgressBar android:id="@+id/progressBar" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center_vertical|end" android:layout_marginEnd="16dp" android:visibility="gone" android:indeterminateTint="@color/accent_cyan"/>
+          </FrameLayout>
+          </androidx.cardview.widget.CardView>
+          <androidx.cardview.widget.CardView android:id="@+id/inputCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="12dp" android:layout_marginBottom="16dp" app:cardBackgroundColor="@color/bg_surface" app:cardCornerRadius="24dp" app:cardElevation="0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingHorizontal="8dp" android:paddingVertical="6dp">
+          <ImageButton android:id="@+id/btnMic" android:layout_width="44dp" android:layout_height="44dp" android:src="@android:drawable/ic_btn_speak_now" android:background="@drawable/bg_mic_button" android:tint="@color/accent_cyan" android:contentDescription="Mic"/>
+          <EditText android:id="@+id/editTextInput" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginHorizontal="8dp" android:hint="Type a command..." android:hintTextColor="@color/text_muted" android:textColor="@color/text_primary" android:textSize="14sp" android:background="@null" android:maxLines="4" android:imeOptions="actionSend" android:inputType="textMultiLine|textCapSentences"/>
+          <ImageButton android:id="@+id/btnSend" android:layout_width="44dp" android:layout_height="44dp" android:src="@android:drawable/ic_menu_send" android:background="@drawable/bg_send_button" android:tint="@color/accent_cyan" android:contentDescription="Send"/>
+          </LinearLayout>
+          </androidx.cardview.widget.CardView>
+          </androidx.constraintlayout.widget.ConstraintLayout>
+          XMLEOF
+      - name: Install Gradle wrapper
+        run: cd ARIA-Android && gradle wrapper --gradle-version 8.2
+      - name: Build
+        run: |
+          cd ARIA-Android
           chmod +x gradlew
           ./gradlew assembleDebug
       - name: Upload APK
