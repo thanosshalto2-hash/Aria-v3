@@ -51,4 +51,21 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ARIA-APK
+          path: "**/app-debug.apk"          <EditText android:id="@+id/editTextInput" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginHorizontal="8dp" android:hint="Type a command..." android:hintTextColor="@color/text_muted" android:textColor="@color/text_primary" android:textSize="14sp" android:background="@null" android:maxLines="4" android:imeOptions="actionSend" android:inputType="textMultiLine|textCapSentences"/>
+          <ImageButton android:id="@+id/btnSend" android:layout_width="44dp" android:layout_height="44dp" android:src="@android:drawable/ic_menu_send" android:background="@drawable/bg_send_button" android:tint="@color/accent_cyan" android:contentDescription="Send"/>
+          </LinearLayout>
+          </androidx.cardview.widget.CardView>
+          </androidx.constraintlayout.widget.ConstraintLayout>
+          XMLEOF
+      - name: Install Gradle wrapper
+        run: cd ARIA-Android && gradle wrapper --gradle-version 8.2
+      - name: Build
+        run: |
+          cd ARIA-Android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ARIA-APK
           path: "**/app-debug.apk"
